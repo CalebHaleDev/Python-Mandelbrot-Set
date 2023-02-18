@@ -1,7 +1,12 @@
 print("Hello World. This is my Mandelbrot set generator")
-import math
+import math #alternatively, "from math import *" where I think * means everything, a empty placeholder
 import random
 import sys
+
+#notes that might be useful for future updates:
+#negative index position accesses lists from the end forward (first to last, second to last, third to last, etc.)
+#colon can be used for a selection, i.e. print(list[1:4])
+#list.extend(source) can be used to a add another list to a list, like append - which adds values
 
 def roundDown(n):
     return int("{:.0f}".format(n))
