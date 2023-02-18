@@ -1,12 +1,14 @@
 print("Hello World. This is my Mandelbrot set generator")
 import math #alternatively, "from math import *" where I think * means everything, a empty placeholder
-import random
+#import random
 import sys
 
 #notes that might be useful for future updates:
 #negative index position accesses lists from the end forward (first to last, second to last, third to last, etc.)
 #colon can be used for a selection, i.e. print(list[1:4])
 #list.extend(source) can be used to a add another list to a list, like append - which adds values
+#tuples can't be changed or altered
+#dictionary.get(key, default value) allows automatic default values to be returned, unlike dictionary[key] 
 
 def roundDown(n):
     return int("{:.0f}".format(n))
@@ -16,7 +18,7 @@ def iterate(value, coord):      #this squares a complex number and adds another 
 
 def print_set(set, precision):
     rows = list()
-    set_height = 4*precision    #int(math.sqrt(len(set)))
+    set_height = 4*precision
     for row in range(set_height): rows.append("")
     point_iterator = 0
     for data_point in sorted(set):
@@ -49,8 +51,8 @@ def generate_set(precision, gamemode):
     max_Iterations = max(min(15*precision,10000),1000)
 
     print("generating, please wait...")
-    for i in range(0,4*precision):
-        for j in range(0,4*precision):
+    for i in range(4*precision):
+        for j in range(4*precision):
             coord = (i-2*precision)/precision, (j-2*precision)/precision #this cycles through all x, y values between 0 and 2
             iterations = 0
             result = iterate(coord, coord)
