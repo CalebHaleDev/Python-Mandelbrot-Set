@@ -72,7 +72,11 @@ def generate_set(precision, gamemode, sensitivity, coordinate_range):
             while(iterations<max_iterations and result[0]**2+result[1]**2<4):   #generate each point
                 result = iterate(result, coord)
                 iterations+=1
-            mandelbrot[coord] = iterations      #store each point
+            
+            if iterations==max_iterations:      #store each point
+                mandelbrot[coord] = 0       #if value converged, write 0
+            else:
+                mandelbrot[coord] = iterations      
 
             #uncomment for high iteration data
             #if(iterations>.75*max_Iterations and iterations<max_Iterations): print(str(iterations)+" iterations from "+str(coord))
@@ -96,11 +100,17 @@ def generate_set(precision, gamemode, sensitivity, coordinate_range):
 
     #print stats:
     running_total = 0
+    inner_area_points = 0
+    outer_area_points = 0
     for data_point in mandelbrot:
         running_total += mandelbrot[data_point]
+        if data_point == 0:
+            inner_area_points += 1
+        if data_point == 0:
+            outer_area_points += 1
     data_average = running_total/len(mandelbrot)
     area_average = data_average/precision**2
-    print("totals are: "+str(running_total)+"       the average is: "+str(data_average)+"   and the weighted average is: "+str(area_average))
+    print("totals are: "+str(running_total)+"       the average is: "+str(data_average)+"       the mid-area is: "+str(inner_area_points)+"       the outer-area is: "+str(outer_area_points))
     print()
 
 
@@ -123,13 +133,15 @@ def print_help():
 user_input = ""
 x_range = -2, 2
 y_range = -2, 2
+print()
+print("Welcome to the Mandelbrot Generator and analyzer!")
+print()
 while(user_input!="0"):
     print()
     print("enter 0 to quit")
     print("enter 1 to generate the mandelbrot set with custom settings")
     print("enter 2 to generate the set with a series of settings")
     print("enter 3 for help")
-    #print("enter 4 to change the ranges of the display")
 
     #generate_set uses the inputs (precision, gamemode, sensitivity, coordinate_range)
     #precision is the number of digits (resolution), and sensitivity is the range of values (contrast/variety)
@@ -151,7 +163,7 @@ while(user_input!="0"):
         x_range = -2, 2
         y_range = -2, 2
         coordinate_range = x_range, y_range
-        for i in range(1,6): #1,6
+        for i in range(1,6):
             generate_set(10*i, 2, i, coordinate_range)
     if(user_input=="3"):
         print_help()
