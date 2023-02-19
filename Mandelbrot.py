@@ -20,7 +20,7 @@ def iterate(value, coord):      #this squares a complex number and adds another 
 def print_set(set, precision):
     set_height = 4*precision
     point_iterator = 0
-    ln_to_log_constant = math.log(10)
+    ln_to_log_constant = math.log(10)   #changing the number here changes the logarithmic scale of the graph. Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image
 
     for data_point in sorted(set):
         if set[data_point]==0:                      #for each point, find the value
@@ -34,7 +34,7 @@ def print_set(set, precision):
 def generate_set(precision, gamemode):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
     mandelbrot = dict()
-    max_iterations = max(min(15*precision,100000),1000)
+    max_iterations = max(min(15*precision,10000),1000)
 
     print("generating, please wait...")
     for i in range(-2*precision, 2*precision):
@@ -76,7 +76,6 @@ def generate_set(precision, gamemode):
     """
 
 #main function:
-
 user_input = ""
 while(user_input!="0"):
     print()
