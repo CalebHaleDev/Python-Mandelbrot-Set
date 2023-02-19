@@ -33,15 +33,16 @@ def print_set(set, precision):
 def generate_set(precision, gamemode):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
     mandelbrot = dict()
-    max_Iterations = max(min(15*precision,10000),1000)
+    max_iterations = max(min(15*precision,10000),1000)
 
+    print("precision:"+str(max_iterations))
     print("generating, please wait...")
     for i in range(-2*precision, 2*precision):
         for j in range(-2*precision, 2*precision):
             coord = i/precision, j/precision #this cycles through all x, y values between 0 and 2
             iterations = 0
-            result = iterate(coord, coord)  #can tuples be redefined?
-            while(iterations<max_Iterations and result[0]**2+result[1]**2<4):   #generate each point
+            result = iterate(coord, coord)
+            while(iterations<max_iterations and result[0]**2+result[1]**2<4):   #generate each point
                 result = iterate(result, coord)
                 iterations+=1
             mandelbrot[coord] = iterations      #store each point
@@ -73,12 +74,6 @@ def generate_set(precision, gamemode):
     """
 
 #main function:
-testtuple = (1,2)
-print(testtuple)
-print("and squared...")
-testtuple = (testtuple[0]**2,testtuple[1]**2)
-print(testtuple)
-
 user_input = ""
 while(user_input!="0"):
     print()
