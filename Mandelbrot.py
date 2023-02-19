@@ -6,7 +6,6 @@ import sys
 #negative index position accesses lists from the end forward (first to last, second to last, third to last, etc.)
 #colon can be used for a selection, i.e. print(list[1:4])
 #list.extend(source) can be used to a add another list to a list, like append - which adds values
-#tuples can't be changed or altered
 #dictionary.get(key, default value) allows automatic default values to be returned, unlike dictionary[key] 
 #experiment with enumeration keywords and printing lists easier
 
@@ -34,7 +33,7 @@ def print_set(set, precision, sensitivity):
         point_iterator+=1
         if point_iterator%set_height==0: print()    #make newline after each line
 
-def generate_set(precision, gamemode, sensitivity):
+def generate_set(precision, gamemode, sensitivity, coordinate_range):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
     sensitivity = int(sensitivity)  #determines the log scale of digit displays
     mandelbrot = dict()
@@ -79,23 +78,46 @@ def generate_set(precision, gamemode, sensitivity):
     print("totals are: "+str(running_total)+"       the average is: "+str(data_average)+"   and the weighted average is: "+str(area_average))
     """
 
+def print_help():
+    print("Welcome!")
+    print("What is the Mandelbrot set?")
+    print("The Mandelbrot set is a display of the results of repeatedly squaring and adding numbers with complex values.")
+    print("(that means it has both imaginary and real parts, like how a mixed number has a whole part and a fraction part)")
+    print()
+    print("How does the program work?")
+    print("you can print the set with different precisions (different height and width of the image, like pixel size)")
+    print("and you can adjust the sensitivity (different digits display for the values, so you can see more or less change)")
+
+
 #main function:
 user_input = ""
+x_range = -2, 2
+y_range = -2, 2
+coordinate_range = x_range, y_range
 while(user_input!="0"):
     print()
     print("enter 0 to quit")
     print("enter 1 to generate the mandelbrot set with custom settings")
     print("enter 2 to generate the set with a series of settings")
+    print("enter 3 for help")
+    #print("enter 4 to change the ranges of the display")
 
-    #generate_set uses the inputs (precision, gamemode, sensitivity)
+    #generate_set uses the inputs (precision, gamemode, sensitivity, coordinate_range)
     #precision is the number of digits (resolution), and sensitivity is the range of values (contrast/variety)
     user_input = str(input("pick your action: "))
     if (user_input=="1"):
         precision = input("enter your level of precision: (max displayable is 39)")
         sensitivity = input("enter your level of sensitivity: (max displayable is ?)")
-        generate_set(precision, 1, sensitivity)
+        #ask for coordinates
+        generate_set(precision, 1, sensitivity, coordinate_range)   #need to adjust printing display for different ranges
     if(user_input=="2"):
-        for i in range (2,5):
-            generate_set(i**3, 2, 1)
+        x_range = -2, 2
+        y_range = -2, 2
+        coordinate_range = x_range, y_range
+        for i in range(1,5):
+            generate_set(10*i, 2, i, )
+    if(user_input=="3"):
+        print_help()
+
         
 print("Have a great day!")
