@@ -20,9 +20,12 @@ def iterate(value, coord):      #this squares a complex number and adds another 
     return 2*i*r+addi, r**2-i**2+addr
 
 def print_set(set, precision, sensitivity, coordinate_range):
-    set_height = int((coordinate_range[1][1]-coordinate_range[1][0])*precision)
+    set_width = int((coordinate_range[0][1]-coordinate_range[0][0])*precision)
+    print("width is: "+str(set_width))
     point_iterator = 0
-    ln_to_log_constant = math.log(10/sensitivity)   #changing the number here changes the logarithmic scale of the graph. Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image
+    #changing the number below changes the logarithmic scale of the graph.
+    #Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image. high sensitivity means low constant.
+    ln_to_log_constant = math.log(10/sensitivity)   
 
     for data_point in sorted(set):
         if set[data_point]==0:                      #for each point, find the value
@@ -31,7 +34,7 @@ def print_set(set, precision, sensitivity, coordinate_range):
             data = round(math.log(set[data_point])/ln_to_log_constant)
         sys.stdout.write(str(data))                 #and print the value without going to a new line
         point_iterator+=1
-        if point_iterator%set_height==0: print()    #make newline after each line
+        if point_iterator%set_width==0: print()    #make newline after each line
 
 def generate_set(precision, gamemode, sensitivity, coordinate_range):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
@@ -96,6 +99,9 @@ def print_help():
 
 
 #main function:
+for i in range(-3,3):
+    print(i)
+
 user_input = ""
 x_range = -2, 2
 y_range = -2, 2
