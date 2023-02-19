@@ -21,20 +21,22 @@ def iterate(value, coord):      #this squares a complex number and adds another 
 
 def print_set(set, precision, sensitivity, coordinate_range):
     set_width = int((coordinate_range[0][1]-coordinate_range[0][0])*precision)
-    print("width is: "+str(set_width))
+    #print("width is: "+str(set_width))
     point_iterator = 0
     #changing the number below changes the logarithmic scale of the graph.
     #Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image. high sensitivity means low constant.
     ln_to_log_constant = math.log(10/sensitivity)   
 
-    for data_point in sorted(set):
+    for data_point in sorted(set):      #image seems to be flipping top to bottom
         if set[data_point]==0:                      #for each point, find the value
             data = 0
         else:
             data = round(math.log(set[data_point])/ln_to_log_constant)
         sys.stdout.write(str(data))                 #and print the value without going to a new line
         point_iterator+=1
-        if point_iterator%set_width==0: print()    #make newline after each line
+
+        if point_iterator%set_width==0:     #make newline after each line
+            print()    
 
 def generate_set(precision, gamemode, sensitivity, coordinate_range):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
@@ -65,8 +67,8 @@ def generate_set(precision, gamemode, sensitivity, coordinate_range):
     #uncomment to print the whole set
     #print("the set is: " + str(mandelbrot))
 
-    if (gamemode==1):   #unless gamemode is manual, print stats. if it's manual, ask
-        if(input("type yes if you'd like to see more data: ")!="yes"): return   #if data not wanted, stop, otherwise continue
+    #if (gamemode==1):   #unless gamemode is manual, print stats. if it's manual, ask
+    #    if(input("type yes if you'd like to see more data: ")!="yes"): return   #if data not wanted, stop, otherwise continue
 
     if((coordinate_range[0][1]-coordinate_range[0][0])*precision<=160):    #print the visual if there's room
         print_set(mandelbrot, precision, sensitivity, coordinate_range)
@@ -99,9 +101,6 @@ def print_help():
 
 
 #main function:
-for i in range(-3,3):
-    print(i)
-
 user_input = ""
 x_range = -2, 2
 y_range = -2, 2
@@ -117,8 +116,8 @@ while(user_input!="0"):
     #precision is the number of digits (resolution), and sensitivity is the range of values (contrast/variety)
     user_input = str(input("pick your action: "))
     if (user_input=="1"):       #custom graph
-        precision = input("enter your level of precision: (max displayable is 39)")
-        sensitivity = input("enter your level of sensitivity: (max displayable is ?)")
+        precision = input("enter your level of precision: (max displayable is 160 total)")
+        sensitivity = input("enter your level of sensitivity: ")
         if input("use default range? (Y/N) ")=="N":         #ask for coordinates
             x_range = float(input("starting X? ")), 2
             x_range = x_range[0], float(input("stopping X? "))
@@ -137,6 +136,5 @@ while(user_input!="0"):
             generate_set(10*i, 2, i, coordinate_range)
     if(user_input=="3"):
         print_help()
-
-        
+   
 print("Have a great day!")
