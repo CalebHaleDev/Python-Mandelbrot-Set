@@ -21,22 +21,41 @@ def iterate(value, coord):      #this squares a complex number and adds another 
 
 def print_set(set, precision, sensitivity, coordinate_range):
     set_width = int((coordinate_range[0][1]-coordinate_range[0][0])*precision)
-    #print("width is: "+str(set_width))
+    print("width is: "+str(set_width))
     point_iterator = 0
     #changing the number below changes the logarithmic scale of the graph.
     #Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image. high sensitivity means low constant.
-    ln_to_log_constant = math.log(10/sensitivity)   
+    ln_to_log_constant = math.log(10/sensitivity)
+    display_array = []
+    for row in range(int((coordinate_range[1][1]-coordinate_range[1][0])*precision)):
+        display_array.append([])
 
-    for data_point in sorted(set):      #image seems to be flipping top to bottom
+    for data_point in sorted(set):
         if set[data_point]==0:                      #for each point, find the value
             data = 0
         else:
             data = round(math.log(set[data_point])/ln_to_log_constant)
-        sys.stdout.write(str(data))                 #and print the value without going to a new line
+        display_array[-1*(point_iterator%set_width)-1].append(str(data))    #add the data point to the current row
         point_iterator+=1
+    
+    for row in display_array:       #display each row
+        for item in row:
+            sys.stdout.write(str(item))
+        print()
 
+    return
+
+
+    #direct print testing copy
+    for data_point in sorted(set): 
+        if set[data_point]==0: data = 0
+        else: data = round(math.log(set[data_point])/ln_to_log_constant)
+        sys.stdout.write(str(data_point)+"is"+str(data))   
+        point_iterator+=1
+        sys.stdout.write("r"+str(point_iterator%set_width))
         if point_iterator%set_width==0:     #make newline after each line
-            print()    
+            print() 
+
 
 def generate_set(precision, gamemode, sensitivity, coordinate_range):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
@@ -132,7 +151,7 @@ while(user_input!="0"):
         x_range = -2, 2
         y_range = -2, 2
         coordinate_range = x_range, y_range
-        for i in range(1,6):
+        for i in range(1,6): #1,6
             generate_set(10*i, 2, i, coordinate_range)
     if(user_input=="3"):
         print_help()
