@@ -20,7 +20,7 @@ def iterate(value, coord):      #this squares a complex number and adds another 
 def print_set(set, precision):
     set_height = 4*precision
     point_iterator = 0
-    
+
     for data_point in sorted(set):
         if set[data_point]==0:                      #for each point, find the value
             data = 0
@@ -73,6 +73,12 @@ def generate_set(precision, gamemode):
     """
 
 #main function:
+testtuple = (1,2)
+print(testtuple)
+print("and squared...")
+testtuple = (testtuple[0]**2,testtuple[1]**2)
+print(testtuple)
+
 user_input = ""
 while(user_input!="0"):
     print()
