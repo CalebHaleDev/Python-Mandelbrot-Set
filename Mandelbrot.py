@@ -1,6 +1,5 @@
 print("Hello World. This is my Mandelbrot set generator")
 import math #alternatively, "from math import *" where I think * means everything, a empty placeholder
-#import random
 import sys
 
 #notes that might be useful for future updates:
@@ -15,12 +14,16 @@ def roundDown(n):
     return int("{:.0f}".format(n))
 
 def iterate(value, coord):      #this squares a complex number and adds another to it
-    return value[0]**2-value[1]**2+coord[0], 2*value[0]+coord[1]
+    i = value[0]
+    r = value[1]
+    addi = coord[0]
+    addr = coord[1]
+    return 2*i*r+addi, r**2-i**2+addr
 
-def print_set(set, precision):
+def print_set(set, precision, sensitivity):
     set_height = 4*precision
     point_iterator = 0
-    ln_to_log_constant = math.log(10)   #changing the number here changes the logarithmic scale of the graph. Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image
+    ln_to_log_constant = math.log(10/sensitivity)   #changing the number here changes the logarithmic scale of the graph. Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image
 
     for data_point in sorted(set):
         if set[data_point]==0:                      #for each point, find the value
@@ -31,8 +34,9 @@ def print_set(set, precision):
         point_iterator+=1
         if point_iterator%set_height==0: print()    #make newline after each line
 
-def generate_set(precision, gamemode):
+def generate_set(precision, gamemode, sensitivity):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
+    sensitivity = int(sensitivity)  #determines the log scale of digit displays
     mandelbrot = dict()
     max_iterations = max(min(15*precision,10000),1000)
 
@@ -62,7 +66,7 @@ def generate_set(precision, gamemode):
         if(input("type yes if you'd like to see more data: ")!="yes"): return   #if data not wanted, stop, otherwise continue
 
     if(4*precision<160):    #print the visual if there's room
-        print_set(mandelbrot, precision)
+        print_set(mandelbrot, precision, sensitivity)
     else:
         print("visual too large to print")
 
@@ -83,11 +87,15 @@ while(user_input!="0"):
     print("enter 1 to generate the mandelbrot set with custom settings")
     print("enter 2 to generate the set with a series of settings")
 
+    #generate_set uses the inputs (precision, gamemode, sensitivity)
+    #precision is the number of digits (resolution), and sensitivity is the range of values (contrast/variety)
     user_input = str(input("pick your action: "))
     if (user_input=="1"):
-        generate_set(input("enter your level of precision: "), 1)
+        precision = input("enter your level of precision: (max displayable is 39)")
+        sensitivity = input("enter your level of sensitivity: (max displayable is ?)")
+        generate_set(precision, 1, sensitivity)
     if(user_input=="2"):
         for i in range (2,5):
-            generate_set(i**3, 2)
+            generate_set(i**3, 2, 1)
         
 print("Have a great day!")
