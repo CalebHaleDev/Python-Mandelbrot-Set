@@ -20,7 +20,7 @@ def iterate(value, coord):      #this squares a complex number and adds another 
     return 2*i*r+addi, r**2-i**2+addr
 
 def print_set(set, precision, sensitivity, coordinate_range):
-    set_height = (coordinate_range[1][1]-coordinate_range[1][0])*precision   
+    set_height = int((coordinate_range[1][1]-coordinate_range[1][0])*precision)
     point_iterator = 0
     ln_to_log_constant = math.log(10/sensitivity)   #changing the number here changes the logarithmic scale of the graph. Lower numbers for more range (detail), but if you exceed 9 the double-digits will break the image
 
@@ -40,9 +40,9 @@ def generate_set(precision, gamemode, sensitivity, coordinate_range):
     max_iterations = max(min(15*precision,10000),1000)
 
     print("generating, please wait...")
-    for i in range(coordinate_range[0][0]*precision, coordinate_range[0][1]*precision):
-        for j in range(coordinate_range[1][0]*precision, coordinate_range[1][1]*precision):
-            coord = i/precision, j/precision #this cycles through all x, y values between 0 and 2
+    for i in range(int(coordinate_range[0][0]*precision), int(coordinate_range[0][1]*precision)):
+        for j in range(int(coordinate_range[1][0]*precision), int(coordinate_range[1][1]*precision)):
+            coord = i/precision, j/precision #this cycles through all x, y values between the graph range
             iterations = 0
             result = iterate(coord, coord)
             while(iterations<max_iterations and result[0]**2+result[1]**2<4):   #generate each point
@@ -57,7 +57,8 @@ def generate_set(precision, gamemode, sensitivity, coordinate_range):
             #uncomment for raw data
             #print(str(iterations)+" iterations from "+str(coord))
     
-    print("\nprecision "+str(precision)+" set generated with size of: "+str(len(mandelbrot))+" out of "+str((precision*4)**2))
+
+    print("\nprecision "+str(precision)+" set generated with size of: "+str(len(mandelbrot))+" out of "+str((int(coordinate_range[0][1]*precision)-int(coordinate_range[0][0]*precision)) * (int(coordinate_range[1][1]*precision-int(coordinate_range[1][0]*precision)))))
     #uncomment to print the whole set
     #print("the set is: " + str(mandelbrot))
 
@@ -113,10 +114,10 @@ while(user_input!="0"):
         precision = input("enter your level of precision: (max displayable is 39)")
         sensitivity = input("enter your level of sensitivity: (max displayable is ?)")
         if input("use default range? (Y/N) ")=="N":         #ask for coordinates
-            x_range = input("starting X? "), 2
-            x_range = x_range[0], input("stopping X? ")
-            y_range = input("starting Y? "), 2
-            y_range = y_range[0], input("stopping Y? ")
+            x_range = float(input("starting X? ")), 2
+            x_range = x_range[0], float(input("stopping X? "))
+            y_range = float(input("starting Y? ")), 2
+            y_range = y_range[0], float(input("stopping Y? "))
         else:
             x_range = -2, 2
             y_range = -2, 2
