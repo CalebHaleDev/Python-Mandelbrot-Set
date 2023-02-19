@@ -18,16 +18,15 @@ def iterate(value, coord):      #this squares a complex number and adds another 
     return value[0]**2-value[1]**2+coord[0], 2*value[0]+coord[1]
 
 def print_set(set, precision):
-    rows = list()
     set_height = 4*precision
-    for row in range(set_height): rows.append("")
     point_iterator = 0
+    
     for data_point in sorted(set):
-        if set[data_point]==0:
+        if set[data_point]==0:                      #for each point, find the value
             data = 0
         else:
             data = round(math.log(set[data_point]))
-        sys.stdout.write(str(data))
+        sys.stdout.write(str(data))                 #and print the value without going to a new line
         point_iterator+=1
         if point_iterator%set_height==0: print()    #make newline after each line
 
@@ -61,7 +60,9 @@ def generate_set(precision, gamemode):
     if (gamemode==1):   #unless gamemode is manual, print stats. if it's manual, ask
         if(input("type yes if you'd like to see more data: ")!="yes"): return   #if data not wanted, stop, otherwise continue
 
-    if(4*precision<160): print_set(mandelbrot, precision)   #print the visual if there's room
+    if(4*precision<160):    #print the visual if there's room
+        print_set(mandelbrot, precision)
+
 """         print stats:
     running_total = 0
     for data_point in mandelbrot:
@@ -80,8 +81,10 @@ while(user_input!="0"):
     print("enter 2 to generate the set with a series of settings")
 
     user_input = str(input("pick your action: "))
-    if (user_input=="1"): generate_set(input("enter your level of precision: "), 1)
+    if (user_input=="1"):
+        generate_set(input("enter your level of precision: "), 1)
     if(user_input=="2"):
-        for i in range (2,5): generate_set(i**3, 2)
+        for i in range (2,5):
+            generate_set(i**3, 2)
         
 print("Have a great day!")
