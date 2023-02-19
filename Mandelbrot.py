@@ -35,7 +35,6 @@ def generate_set(precision, gamemode):
     mandelbrot = dict()
     max_iterations = max(min(15*precision,10000),1000)
 
-    print("precision:"+str(max_iterations))
     print("generating, please wait...")
     for i in range(-2*precision, 2*precision):
         for j in range(-2*precision, 2*precision):
@@ -63,6 +62,8 @@ def generate_set(precision, gamemode):
 
     if(4*precision<160):    #print the visual if there's room
         print_set(mandelbrot, precision)
+    else:
+        print("visual too large to print")
 
 """         print stats:
     running_total = 0
@@ -74,6 +75,15 @@ def generate_set(precision, gamemode):
     """
 
 #main function:
+for i in range(10):
+    print(str(math.log(10**i)))
+for i in range(10):
+    print(str(math.log(2.72**i)))
+
+
+print()
+print()
+
 user_input = ""
 while(user_input!="0"):
     print()
