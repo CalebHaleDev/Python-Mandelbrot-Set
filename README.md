@@ -3,7 +3,7 @@
 Purpose: Create and analyze the Mandelbrot set! This project is meant for me to practice learning Python and using it to analyze data. Hopefully I can get something ready to display the results in a graph for easier viewing of the results. Even with just printing digits, you can see what it is generating. I designed it to print at varied levels of detail and noticed what it printed wasn't the Mandelbrot set (a fractal-like shape creating my graphing the results of repeatedly squaring complex numbers and adding a constant to it each iteration). I didn't find a free data set for the Mandelbrot set, so I decided to generate my own copies with the desired precision. I wrote this software mainly to learn and practice python by analyzing the Mandelbrot set, but it was fun trying to figure out where I went wrong in generating the set. I have previously made my own Mandelbrot generator, so I decided to compare the code for each. That revealed my mistake was in the complex number multiplication, which after fixing gave the right data.
 
 Demo video:
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/Q1ZUsvQrAjQ)
 
 # Data Analysis Results
 
