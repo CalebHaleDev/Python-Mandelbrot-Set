@@ -20,12 +20,13 @@ def iterate(value, coord):      #this squares a complex number and adds another 
 def print_set(set, precision):
     set_height = 4*precision
     point_iterator = 0
+    ln_to_log_constant = math.log(10)
 
     for data_point in sorted(set):
         if set[data_point]==0:                      #for each point, find the value
             data = 0
         else:
-            data = round(math.log(set[data_point]))
+            data = round(math.log(set[data_point])/ln_to_log_constant)
         sys.stdout.write(str(data))                 #and print the value without going to a new line
         point_iterator+=1
         if point_iterator%set_height==0: print()    #make newline after each line
@@ -33,7 +34,7 @@ def print_set(set, precision):
 def generate_set(precision, gamemode):
     precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
     mandelbrot = dict()
-    max_iterations = max(min(15*precision,10000),1000)
+    max_iterations = max(min(15*precision,100000),1000)
 
     print("generating, please wait...")
     for i in range(-2*precision, 2*precision):
@@ -75,14 +76,6 @@ def generate_set(precision, gamemode):
     """
 
 #main function:
-for i in range(10):
-    print(str(math.log(10**i)))
-for i in range(10):
-    print(str(math.log(2.72**i)))
-
-
-print()
-print()
 
 user_input = ""
 while(user_input!="0"):
