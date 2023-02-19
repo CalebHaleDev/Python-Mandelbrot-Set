@@ -1,17 +1,24 @@
 # Python-Mandelbrot-Set Overview
 
-Purpose: Create and analyze the Mandelbrot set! This project is meant for me to practice learning Python and using it to analyze data. Hopefully I can get something ready to display the results in a graph for easier viewing of the results. Even with just printing digits, you can see what it is generating. I designed it to print at varied levels of detail and noticed what it printed wasn't the Mandelbrot set (a fractal-like shape creating my graphing the results of repeatedly squaring complex numbers and adding a constant to it each iteration). I didn't find a free data set for the Mandelbrot set, so I decided to generate my own copies with the desired precision. I wrote this software mainly to learn and practice python by analyzing the Mandelbrot set, but it was fun trying to figure out where I went wrong in generating the set. I have previously made my own Mandelbrot generator, so I decided to compare the code for each. (Seeing the digit 7 when the iteration count should be limited to 10000, yielding a log digit of 5 max hinting something was wrong in either the interation of the generator or the display of the results.)
-
-{Provide a description of the data set that you are analyzing.  Include the link of where you obtained the data.}
-
-{Describe your purpose for writing this software to analyze the data.}
+Purpose: Create and analyze the Mandelbrot set! This project is meant for me to practice learning Python and using it to analyze data. Hopefully I can get something ready to display the results in a graph for easier viewing of the results. Even with just printing digits, you can see what it is generating. I designed it to print at varied levels of detail and noticed what it printed wasn't the Mandelbrot set (a fractal-like shape creating my graphing the results of repeatedly squaring complex numbers and adding a constant to it each iteration). I didn't find a free data set for the Mandelbrot set, so I decided to generate my own copies with the desired precision. I wrote this software mainly to learn and practice python by analyzing the Mandelbrot set, but it was fun trying to figure out where I went wrong in generating the set. I have previously made my own Mandelbrot generator, so I decided to compare the code for each. That revealed my mistake was in the complex number multiplication, which after fixing gave the right data.
 
 Demo video:
 [Software Demo Video](http://youtube.link.goes.here)
 
 # Data Analysis Results
 
-{List the questions and the answers you found by doing this analysis.}
+What's the average number of iterations per point? According to increasing precision, the answer seemed to converge to a value between 96.6 and 97.7...
+10 - 102.239375
+20 - 97.345
+30 - 97.74145833333333
+40 - 96.6703515625
+50 - 96.5031
+60 - 96.61713541666667
+70 - 102.0007780612245
+...but as I continued the value diverged again. Still unknown.
+
+What's the area of the inner shape?
+Google says it's about 1.506484 but I never got the answer from my project. I experimented with different triggers/qualifications for what to mark, but the program wouldn't recognize more than one data point for any of the criteria I tried.
 
 # Development Environment
 
@@ -30,6 +37,8 @@ Helpful websites:
 # Future Work
 
 {Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Learn why the image is rotated (image values, no longer a display issue)
+* Learn why 0s are recognized and countable (get counters working for data analysis)
+* Get the custom range system working
+* Troubleshoot bug where blank spaces are displayed
+
