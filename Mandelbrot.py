@@ -9,6 +9,7 @@ import sys
 #list.extend(source) can be used to a add another list to a list, like append - which adds values
 #tuples can't be changed or altered
 #dictionary.get(key, default value) allows automatic default values to be returned, unlike dictionary[key] 
+#experiment with enumeration keywords and printing lists easier
 
 def roundDown(n):
     return int("{:.0f}".format(n))
@@ -28,34 +29,19 @@ def print_set(set, precision):
             data = round(math.log(set[data_point]))
         sys.stdout.write(str(data))
         point_iterator+=1
-        if point_iterator%set_height==0: print()
-        """
-        rows[set_height-1-point_iterator%set_height] = str(rows[set_height-1-point_iterator%set_height])+str(data,10)
-        point_iterator+=1
-        """
-
-
-"""
-    set_width = math.sqrt(set)
-    set_height = set_width
-    for row in range(set_height):
-        line = []
-        for point in range(set_width):
-            print()
-"""
+        if point_iterator%set_height==0: print()    #make newline after each line
 
 def generate_set(precision, gamemode):
-    precision = int(precision)
+    precision = int(precision)  #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
     mandelbrot = dict()
-    #determines the nths to calculate. .1 is tenths (precision 10), .001 is thousandths (precision 1000), etc.
     max_Iterations = max(min(15*precision,10000),1000)
 
     print("generating, please wait...")
-    for i in range(4*precision):
-        for j in range(4*precision):
-            coord = (i-2*precision)/precision, (j-2*precision)/precision #this cycles through all x, y values between 0 and 2
+    for i in range(-2*precision, 2*precision):
+        for j in range(-2*precision, 2*precision):
+            coord = i/precision, j/precision #this cycles through all x, y values between 0 and 2
             iterations = 0
-            result = iterate(coord, coord)
+            result = iterate(coord, coord)  #can tuples be redefined?
             while(iterations<max_Iterations and result[0]**2+result[1]**2<4):   #generate each point
                 result = iterate(result, coord)
                 iterations+=1
@@ -75,11 +61,8 @@ def generate_set(precision, gamemode):
     if (gamemode==1):   #unless gamemode is manual, print stats. if it's manual, ask
         if(input("type yes if you'd like to see more data: ")!="yes"): return   #if data not wanted, stop, otherwise continue
 
-    
-    #print(enumerate([*mandelbrot]))    experimentation
-
-    if(4*precision<160): print_set(mandelbrot, precision)
-"""
+    if(4*precision<160): print_set(mandelbrot, precision)   #print the visual if there's room
+"""         print stats:
     running_total = 0
     for data_point in mandelbrot:
         running_total += mandelbrot[data_point]
@@ -88,32 +71,7 @@ def generate_set(precision, gamemode):
     print("totals are: "+str(running_total)+"       the average is: "+str(data_average)+"   and the weighted average is: "+str(area_average))
     """
 
-
-#this was used to test the sorted dictionary in a loop
-"""
-def addTestpoint(coordinate, value):
-    test[coordinate] = value
-
-test = dict()
-
-for i in range(10):
-    data = random.sample(range(1,10),3)
-    coordinate = (data[0]-5)/10,(data[1]-5)/10
-    addTestpoint(coordinate, data[2])
-
-print("test is "+str(test))
-
-for i in sorted(test):
-    print(i)
-"""
-#tested logarithms
-"""
-for num in range (1,10):
-    print("log of "+str(10*num)+" is "+str(math.log(10*num,10)))
-    """
-
-print(len("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"))
-
+#main function:
 user_input = ""
 while(user_input!="0"):
     print()
@@ -126,5 +84,4 @@ while(user_input!="0"):
     if(user_input=="2"):
         for i in range (2,5): generate_set(i**3, 2)
         
-
 print("Have a great day!")
